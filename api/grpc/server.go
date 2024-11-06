@@ -33,8 +33,8 @@ func (s *ServidorPedidos) ListarPedidos(
 			IdCliente:    p.IDCliente,
 			Status:       p.Status,
 			ValorTotal:   p.ValorTotal,
-			CriadoEm:     p.CriadoEm,
-			AtualizadoEm: p.AtualizadoEm,
+			CriadoEm:     p.CriadoEm.String(),
+			AtualizadoEm: p.AtualizadoEm.String(),
 		})
 	}
 
