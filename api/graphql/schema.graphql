@@ -1,0 +1,16 @@
+type Pedido {
+  id: String!
+  idCliente: String!
+  status: String!
+  valorTotal: Float!
+  criadoEm: String!
+  atualizadoEm: String!
+}
+
+type Query {
+  listarPedidos: [Pedido!]!
+}
+
+schema {
+  query: Query
+}
