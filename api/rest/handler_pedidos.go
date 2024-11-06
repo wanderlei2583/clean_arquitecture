@@ -29,3 +29,7 @@ func (h *HandlerPedidos) ListarPedidos(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, pedidos)
 }
+
+func SetupRoutes(r *gin.Engine, handler *HandlerPedidos) {
+	r.GET("/pedidos", handler.ListarPedidos)
+}
