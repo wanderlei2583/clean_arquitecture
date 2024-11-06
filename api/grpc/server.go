@@ -6,3 +6,9 @@ type ServidorPedidos struct {
 	pb.UnimplementedServicePedidosServer
 	listarPedidoUseCase *usecase.ListarPedidosUseCase
 }
+
+func NovoServidorPedidos(uc *usecase.ListarPedidosUseCase) *ServidorPedidos {
+	return &ServidorPedidos{
+		listarPedidoUseCase: uc,
+	}
+}
