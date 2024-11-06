@@ -10,3 +10,7 @@ type Pedido struct {
 	CriadoEm     time.Time `json:"criado_em"     gorm:"column:criado_em"`
 	AtualizadoEm time.Time `json:"atualizado_em" gorm:"column:atualizado_em"`
 }
+
+func (Pedido) TableName() string {
+	return "pedidos"
+}
