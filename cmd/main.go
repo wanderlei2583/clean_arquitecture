@@ -9,7 +9,6 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/wanderlei2583/clean_arquitecture/api/grpc"
 	"github.com/wanderlei2583/clean_arquitecture/api/grpc/pb"
 	"github.com/wanderlei2583/clean_arquitecture/api/rest"
 	"github.com/wanderlei2583/clean_arquitecture/internal/repository"
