@@ -4,12 +4,21 @@ import (
 	"log"
 	"net"
 
+	"github.com/gin-gonic/gin"
+	"google.golang.org/grpc"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
+	"github.com/wanderlei2583/clean_arquitecture/api/grpc"
+	"github.com/wanderlei2583/clean_arquitecture/api/grpc/pb"
+	"github.com/wanderlei2583/clean_arquitecture/api/rest"
+	"github.com/wanderlei2583/clean_arquitecture/internal/repository"
+	"github.com/wanderlei2583/clean_arquitecture/internal/usecase"
 )
 
 func main() {
 	dsn := "host=localhost user=postgres password=postgres dbname=db_pedidos port=5432 sslmode=disable"
-	db, err := gorm.Open(postgres.Open(dns), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("Erro ao conectar com o banco de dados: %v", err)
 	}
@@ -23,7 +32,7 @@ func main() {
 	rest.SetupRoutes(router, handlerPedidos)
 
 	grpcServer := grpc.NewServer()
-	pb.RegisterServicePedidosServer(
+	pb.RegisterServicoPedidosServer(
 		grpcServer,
 		grpc.NovoServidorPedidos(listarPedidosUC),
 	)
