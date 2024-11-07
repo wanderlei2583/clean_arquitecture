@@ -3,6 +3,7 @@ package grpc
 import (
 	"context"
 
+	"github.com/wanderlei2583/clean_arquitecture/api/grpc/pb"
 	"github.com/wanderlei2583/clean_arquitecture/internal/usecase"
 )
 
