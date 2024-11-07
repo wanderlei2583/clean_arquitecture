@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package pb;
+option go_package = "gitub.com/wanderlei2583/clean_arquitecture/api/grpc/pb";
+
+service ServicoPedidos {
+  rpc ListarPedidos (RequisicaoListarPedidos) returns (RespostaListarPedidos) {}
+}
+
+message RequisicaoListarPedidos {}
+
+message Pedido {
+  string id = 1;
+  string id_cliente = 2;
+  string status = 3;
+  double valor_total = 4;
+  string criado_em = 5;
+  string atualizado_em = 6;
+}
+
+message RespostaListarPedidos {
+  repeated Pedido pedidos = 1;
+}
