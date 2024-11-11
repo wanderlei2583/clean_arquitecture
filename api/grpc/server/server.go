@@ -8,7 +8,7 @@ import (
 )
 
 type ServidorPedidos struct {
-	pb.UnimplementedServicePedidosServer
+	pb.UnimplementedServicoPedidosServer
 	listarPedidoUseCase *usecase.ListarPedidosUseCase
 }
 
