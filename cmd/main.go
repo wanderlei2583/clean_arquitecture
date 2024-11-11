@@ -4,13 +4,12 @@ import (
 	"log"
 	"net"
 
-	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
 	"github.com/wanderlei2583/clean_arquitecture/api/grpc/pb"
-	"github.com/wanderlei2583/clean_arquitecture/api/rest"
+	grpcserver "github.com/wanderlei2583/clean_arquitecture/api/grpc/server"
 	"github.com/wanderlei2583/clean_arquitecture/internal/repository"
 	"github.com/wanderlei2583/clean_arquitecture/internal/usecase"
 )
@@ -26,27 +25,18 @@ func main() {
 
 	listarPedidosUC := usecase.NovoListarPedidosUseCase(pedidoRepo)
 
-	router := gin.Default()
-	handlerPedidos := rest.NovoHandlerPedidos(listarPedidosUC)
-	rest.SetupRoutes(router, handlerPedidos)
-
 	grpcServer := grpc.NewServer()
 	pb.RegisterServicoPedidosServer(
 		grpcServer,
-		grpc.NovoServidorPedidos(listarPedidosUC),
+		grpcserver.NovoServidorPedidos(listarPedidosUC),
 	)
 
-	go func() {
-		lis, err := net.Listen("tcp", "50051")
-		if err != nil {
-			log.Fatalf("Erro ao iniciar o servidor gRPC: %v", err)
-		}
-		if err := grpcServer.Serve(lis); err != nil {
-			log.Fatalf("Erro ao servir gRPC: %v", err)
-		}
-	}()
-
-	if err := router.Run(":8080"); err != nil {
-		log.Fatalf("Erro ao iniciar o servidor REST: %v", err)
+	lis, err := net.Listen("tcp", "50051")
+	if err != nil {
+		log.Fatalf("Erro ao iniciar o servidor gRPC: %v", err)
+	}
+	log.Println("Servidor gRPC iniciado na porta 50051")
+	if err := grpcServer.Serve(lis); err != nil {
+		log.Fatalf("Erro ao servir gRPC: %v", err)
 	}
 }
