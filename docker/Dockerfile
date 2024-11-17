@@ -27,7 +27,7 @@ RUN protoc \
     api/grpc/proto/pedido.proto
 
 # Compilar
-RUN go build -o main cmd/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main cmd/main.go
 
 EXPOSE 8080 50051 8081
 
